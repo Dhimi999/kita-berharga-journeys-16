@@ -1,0 +1,279 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 168 43% 73%;
+    --primary-foreground: 168 43% 20%;
+
+    --secondary: 24 87% 92%;
+    --secondary-foreground: 24 70% 35%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 220 79% 91%;
+    --accent-foreground: 215 70% 35%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 168 43% 73%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 168 43% 73%;
+    --primary-foreground: 168 43% 20%;
+
+    --secondary: 24 87% 92%;
+    --secondary-foreground: 24 70% 35%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 220 79% 91%;
+    --accent-foreground: 215 70% 35%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 168 43% 73%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
+  }
+
+  .story-card {
+    @apply transition-all duration-500 hover:shadow-lg hover:-translate-y-1;
+  }
+}
+
+/* Fix top padding for pages to prevent header overlap */
+.page-content {
+  @apply pt-28;
+}
+
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.section-fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story-cover-image {
+  transition: transform 0.5s ease;
+}
+
+.story-card:hover .story-cover-image {
+  transform: scale(1.05);
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Quote animation effects - Fixed height issues */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.quote-enter {
+  animation: fadeInUp 0.5s forwards;
+}
+
+.quote-exit {
+  animation: fadeOutDown 0.5s forwards;
+}
+
+/* Fix for quotes section to ensure content is fully visible */
+.quotes-container {
+  min-height: auto;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-text {
+  min-height: auto;
+  height: auto;
+  max-width: 100%;
+  overflow: visible;
+  word-wrap: break-word;
+}
+
+/* Prose content styles for story detail */
+.prose {
+  @apply text-gray-800 leading-relaxed;
+}
+
+.prose p {
+  @apply mb-6;
+}
+
+.prose h2 {
+  @apply text-2xl font-serif font-bold mt-10 mb-4;
+}
+
+.prose h3 {
+  @apply text-xl font-serif font-bold mt-8 mb-3;
+}
+
+.prose ul, .prose ol {
+  @apply ml-6 mb-6;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose img {
+  @apply rounded-lg my-8 mx-auto shadow-md;
+}
+
+.prose blockquote {
+  @apply pl-6 border-l-4 border-primary italic my-6;
+}
+
+/* Responsive improvements */
+@media (max-width: 640px) {
+  /* Improved container padding for mobile */
+  .container {
+    @apply px-4;
+  }
+  
+  /* Ensure action buttons don't get cut off on small screens */
+  .action-buttons {
+    @apply flex-wrap gap-2 justify-center w-full;
+  }
+  
+  /* Fix for quotes display on mobile */
+  .quotes-section blockquote {
+    @apply px-3 py-4;
+    min-height: auto;
+    height: auto;
+  }
+  
+  .quotes-section .quote-text {
+    @apply text-base;
+  }
+}
+
+/* Allow content to wrap on smaller devices */
+.flex-wrap-mobile {
+  @apply flex-wrap;
+}
+
