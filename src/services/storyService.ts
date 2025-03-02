@@ -1,3 +1,4 @@
+
 import { supabase } from '@/integrations/supabase/client';
 import { Story } from '@/types/supabase';
 
@@ -25,7 +26,7 @@ export const fetchFeaturedStories = async (limit = 3): Promise<Story[]> => {
   const { data, error } = await supabase
     .from('stories')
     .select('*')
-    .order('likes', { ascending: false })
+    .order('created_at', { ascending: false })
     .limit(limit);
 
   if (error) {
@@ -175,17 +176,16 @@ const transformStoryData = (data: any): Story => {
                 // Handle case where the first value is itself an array
                 comments = possibleArray[0] as any[];
               } else {
-                // Fix: Make sure we're not trying to use any primitive values as objects
-                comments = possibleArray.filter(item => {
-                  // Explicitly check and handle each type to avoid type errors
-                  if (typeof item === 'object') {
-                    return item !== null; // Filter out null
-                  } else if (typeof item === 'string') {
-                    return true; // Include strings
-                  } else {
-                    return false; // Exclude all other primitive types
-                  }
-                }) as any[];
+                // Fix: Make sure we're only including string and object types
+                comments = possibleArray
+                  .filter(item => typeof item === 'object' || typeof item === 'string')
+                  .map(item => {
+                    // Convert numbers or booleans to strings if they somehow ended up here
+                    if (typeof item !== 'object' && typeof item !== 'string') {
+                      return String(item);
+                    }
+                    return item;
+                  }) as any[];
               }
             }
           }

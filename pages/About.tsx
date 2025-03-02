@@ -1,205 +1,153 @@
 
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
+import { Heart } from 'lucide-react';
 
 const About = () => {
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
-    <div className="min-h-screen">
-      {/* Banner Hero */}
-      <section className="py-24 bg-gradient-to-r from-kb-mint/30 to-kb-blue/20">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-3 py-1 bg-kb-blue rounded-full text-sm font-medium mb-4">
-            Tentang Kami
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold mb-6">
-            Cerita Di Balik Kita Berharga
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Platform yang didedikasikan untuk berbagi cerita inspiratif dan pengalaman hidup
-            dari berbagai individu dan komunitas.
+    <div className="min-h-screen pt-28 pb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 font-serif">Tentang Kita Berharga</h1>
+          <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
+            Kami membangun platform untuk cerita yang menginspirasi, memberdayakan, dan menghubungkan kita semua.
           </p>
         </div>
-      </section>
 
-      {/* Our Story Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Kisah Awal Mula
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                Kita Berharga berawal dari sebuah ide sederhana: menciptakan ruang aman di mana setiap orang
-                dapat berbagi cerita inspiratif dan pengalaman hidup mereka. Kami percaya bahwa setiap orang
-                memiliki cerita yang layak dibagikan dan didengar.
-              </p>
-              <p className="text-muted-foreground mb-4">
-                Didirikan pada tahun 2022, platform kami telah berkembang menjadi komunitas yang saling mendukung,
-                di mana cerita-cerita pribadi menjadi sumber inspirasi dan pembelajaran bagi banyak orang.
+        {/* Mission Section */}
+        <section className="py-12 bg-kb-mint/10 rounded-3xl mb-16">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6 font-serif">Misi Kami</h2>
+                <p className="text-muted-foreground mb-4">
+                  Misi kami adalah menciptakan ruang aman dan inklusif untuk berbagi cerita inspiratif 
+                  yang dapat mengingatkan kita semua bahwa setiap pengalaman hidup itu berharga.
+                </p>
+                <p className="text-muted-foreground">
+                  Kami percaya bahwa ketika cerita-cerita personal dibagikan, mereka memiliki kekuatan 
+                  untuk mengubah perspektif dan menghubungkan kita melalui pengalaman bersama sebagai manusia.
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca" 
+                  alt="Misi Kita Berharga" 
+                  className="w-full h-64 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Story Section */}
+        <section className="py-12 mb-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-8 font-serif text-center">Cerita Kami</h2>
+            <div className="max-w-3xl mx-auto">
+              <p className="text-muted-foreground mb-6">
+                Kita Berharga dimulai sebagai proyek kecil pada tahun 2024 dengan tujuan sederhana: menciptakan 
+                tempat di mana orang dapat menemukan inspirasi dari cerita kehidupan nyata orang lain.
               </p>
               <p className="text-muted-foreground mb-6">
-                Setiap minggu, kami menerima puluhan cerita baru yang kemudian kami kurasi dan bagikan
-                kepada komunitas. Cerita-cerita ini mencakup berbagai tema kehidupan, mulai dari
-                pengembangan diri, keluarga, hingga perjuangan menghadapi tantangan hidup.
+                Kami menyadari bahwa di dunia yang semakin terhubung secara digital, kita sering kali kehilangan 
+                koneksi manusiawi dan cerita personal yang dapat memberikan makna pada kehidupan kita.
+              </p>
+              <p className="text-muted-foreground">
+                Platform ini lahir dari keyakinan bahwa setiap orang memiliki cerita yang layak dibagikan dan 
+                bahwa berbagi pengalaman kita dapat membantu orang lain menemukan kekuatan, harapan, dan arah dalam 
+                perjalanan mereka sendiri.
               </p>
             </div>
-            <div className="order-1 lg:order-2">
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1516321497487-e288fb19713f"
-                  alt="Tim Kita Berharga"
-                  className="w-full h-auto rounded-xl shadow-lg"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-5 -left-5 glass p-4 rounded-lg shadow-md max-w-xs hidden md:block">
-                  <p className="text-sm font-medium">
-                    "Setiap cerita memiliki kekuatan untuk mengubah perspektif dan menginspirasi perubahan."
+          </div>
+        </section>
+
+        {/* Team Section */}
+        <section className="py-12 mb-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-10 font-serif text-center">Tim Kami</h2>
+            
+            <div className="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-4">
+              <div className="flex flex-col md:flex-row">
+                <div className="md:flex-shrink-0">
+                  <img 
+                    className="h-48 w-full md:w-48 object-cover" 
+                    src="https://i.pinimg.com/736x/3a/13/13/3a1313432020bccd45fa715c2f1d2a1c.jpg" 
+                    alt="Dhimas Rizky Handoko"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center mb-2">
+                    <Heart size={20} className="text-primary mr-2" />
+                    <div className="text-xl font-semibold text-gray-900">Dhimas Rizky Handoko</div>
+                  </div>
+                  <p className="text-sm font-medium text-primary mb-3">Pengembang Tunggal "Kita Berharga"</p>
+                  <p className="text-gray-600 text-sm">
+                    Sejak masa sekolah, Dhimas selalu menaruh minat mendalam pada kisah-kisah yang menginspirasi. Ia percaya bahwa setiap orang menyimpan cerita berharga yang layak didengar dan dibagikan.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="py-16 bg-kb-mint/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Visi & Misi Kami
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Membangun komunitas yang saling mendukung melalui kekuatan berbagi cerita
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-kb-peach/50 flex items-center justify-center rounded-full mb-4">
-                <span className="text-secondary-foreground font-bold text-lg">V</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Visi</h3>
-              <p className="text-muted-foreground mb-4">
-                Menciptakan dunia di mana setiap individu menyadari nilai dan potensi diri mereka melalui
-                kekuatan cerita dan berbagi pengalaman.
+            
+            <div className="max-w-lg mx-auto bg-muted/20 rounded-xl p-6">
+              <p className="text-gray-700 italic mb-4">
+                "Melalui 'Kita Berharga,' saya berharap dapat mendorong lebih banyak orang untuk berani berbagi cerita mereka, karena saya yakin kisah kita semua dapat menjadi sumber kekuatan, harapan, dan kebahagiaan."
               </p>
+              <p className="text-right font-medium">– Dhimas Rizky Handoko</p>
+            </div>
+            
+            <div className="max-w-2xl mx-auto mt-8">
               <p className="text-muted-foreground">
-                Kami membayangkan komunitas global tanpa batas di mana orang-orang dari berbagai latar belakang
-                dapat terhubung, belajar, dan bertumbuh bersama melalui cerita inspiratif.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-kb-blue/50 flex items-center justify-center rounded-full mb-4">
-                <span className="text-accent-foreground font-bold text-lg">M</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Misi</h3>
-              <p className="text-muted-foreground mb-4">
-                Memfasilitasi platform yang aman dan inklusif untuk berbagi dan menemukan cerita
-                inspiratif yang dapat membantu orang lain dalam perjalanan kehidupan mereka.
-              </p>
-              <p className="text-muted-foreground">
-                Mendorong budaya saling mendengarkan, menghormati, dan menghargai keragaman
-                pengalaman hidup sebagai sumber kekayaan bersama.
+                Di "Kita Berharga," Dhimas ingin memperkuat tekad untuk menyoroti sisi kemanusiaan di balik setiap cerita. Melalui platform ini, ia berupaya mewujudkan ruang yang ramah dan inklusif, di mana setiap orang dapat menemukan inspirasi serta semangat baru.
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Team Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Tim Kami
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Dibalik platform Kita Berharga terdapat tim yang berdedikasi untuk menyediakan pengalaman terbaik bagi komunitas
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-                  alt="Anisa Rahman"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+        {/* Values */}
+        <section className="py-12 bg-kb-blue/10 rounded-3xl mb-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-10 font-serif text-center">Nilai-Nilai Kami</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="w-12 h-12 bg-kb-peach/30 flex items-center justify-center rounded-full mb-4">
+                  <Heart size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Autentisitas</h3>
+                <p className="text-muted-foreground">
+                  Kami menghargai cerita yang jujur dan autentik, yang menampilkan keindahan dan kompleksitas pengalaman manusia.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-1">Anisa Rahman</h3>
-              <p className="text-primary font-medium mb-3">Founder & CEO</p>
-              <p className="text-muted-foreground text-sm">
-                Memiliki visi untuk menciptakan platform yang menghubungkan orang melalui cerita inspiratif.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a"
-                  alt="Budi Santoso"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="w-12 h-12 bg-kb-mint/30 flex items-center justify-center rounded-full mb-4">
+                  <Heart size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Empati</h3>
+                <p className="text-muted-foreground">
+                  Kami berusaha memahami dan menghormati perjalanan unik setiap individu, tanpa menghakimi atau meremehkan.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-1">Budi Santoso</h3>
-              <p className="text-primary font-medium mb-3">Content Director</p>
-              <p className="text-muted-foreground text-sm">
-                Mengkurasi cerita inspiratif dari berbagai kontributor untuk menjaga kualitas konten.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
-                  alt="Citra Dewi"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="w-12 h-12 bg-kb-yellow/30 flex items-center justify-center rounded-full mb-4">
+                  <Heart size={24} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Keterhubungan</h3>
+                <p className="text-muted-foreground">
+                  Kami percaya bahwa berbagi cerita menciptakan jembatan pemahaman dan mengembangkan rasa kebersamaan.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-1">Citra Dewi</h3>
-              <p className="text-primary font-medium mb-3">Community Manager</p>
-              <p className="text-muted-foreground text-sm">
-                Membangun dan menjaga hubungan dengan komunitas pembaca dan kontributor cerita.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-kb-blue/20 to-kb-mint/30">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Jadilah Bagian dari Perjalanan Kami
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-            Apakah Anda memiliki cerita inspiratif untuk dibagikan? Atau ingin bergabung dengan komunitas kami?
-            Kami selalu terbuka untuk mendengar dari Anda.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:shadow-lg"
-            >
-              Hubungi Kami
-              <ArrowRight size={18} className="ml-2" />
-            </Link>
-            <Link
-              to="/stories"
-              className="inline-flex items-center justify-center px-6 py-3 bg-white border border-primary text-primary rounded-full font-medium transition-all hover:shadow-lg"
-            >
-              Jelajahi Cerita
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

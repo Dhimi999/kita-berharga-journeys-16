@@ -3,28 +3,44 @@ import { useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import FeaturedStories from '../components/FeaturedStories';
 import QuotesSection from '../components/QuotesSection';
+import LoadingScreen from '../components/LoadingScreen';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Share2, MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Simulate loading time - remove in production and use actual content loading detection
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
     };
   }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen">
       <HeroSection />
       
-      {/* Quotes Section - New addition */}
+      {/* Quotes Section */}
       <QuotesSection />
 
       <FeaturedStories />
