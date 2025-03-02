@@ -104,10 +104,6 @@
     @apply leading-relaxed;
   }
 
-  .brand-title {
-    @apply font-serif font-bold text-primary-foreground;
-  }
-
   .link-underline {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
   }
@@ -281,12 +277,3 @@
   @apply flex-wrap;
 }
 
-/* Consistent padding for section headers */
-.section-header {
-  @apply pt-28 lg:pt-32 xl:pt-36;
-}
-
-/* Page headers with additional padding */
-.page-header {
-  @apply pt-32 lg:pt-36 xl:pt-40;
-}

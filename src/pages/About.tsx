@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div className="min-h-screen">
       {/* Banner Hero with Added Padding */}
-      <section className="py-16 md:py-24 pt-32 bg-gradient-to-r from-kb-mint/30 to-kb-blue/20">
+      <section className="py-16 md:py-24 pt-32 lg:pt-36 xl:pt-40 bg-gradient-to-r from-kb-mint/30 to-kb-blue/20">
         <div className="container mx-auto px-4 text-center">
           <span className="inline-block px-3 py-1 bg-kb-blue rounded-full text-sm font-medium mb-4">
             Tentang Kami
