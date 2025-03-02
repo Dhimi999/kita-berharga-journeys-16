@@ -12,7 +12,7 @@ export interface Story {
   header_image?: string;
   featured?: boolean;
   imageUrl?: string;
-  tags?: string[]; // Add tags property to fix related errors
+  tags?: string[];
 }
 
 export interface Comment {
@@ -34,4 +34,73 @@ export interface Admin {
 }
 
 // Minimal Database type for Supabase client
-export interface Database {}
+export interface Database {
+  public: {
+    Tables: {
+      stories: {
+        Row: {
+          id: string;
+          title: string;
+          content: string;
+          author: string;
+          category: string;
+          likes?: number;
+          comments?: Comment[];
+          header_image?: string;
+          created_at?: string;
+          published_at?: string;
+          [key: string]: any;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          content: string;
+          author: string;
+          category: string;
+          likes?: number;
+          comments?: Comment[];
+          header_image?: string;
+          [key: string]: any;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          content?: string;
+          author?: string;
+          category?: string;
+          likes?: number;
+          comments?: Comment[];
+          header_image?: string;
+          [key: string]: any;
+        };
+      };
+      admins: {
+        Row: {
+          id: string;
+          username: string;
+          email: string;
+          role?: string;
+          created_at?: string;
+          password: string;
+          [key: string]: any;
+        };
+        Insert: {
+          id?: string;
+          username: string;
+          email: string;
+          role?: string;
+          password: string;
+          [key: string]: any;
+        };
+        Update: {
+          id?: string;
+          username?: string;
+          email?: string;
+          role?: string;
+          password?: string;
+          [key: string]: any;
+        };
+      };
+    };
+  };
+}
