@@ -1,127 +1,108 @@
 
-import { Comment, Story } from '@/types/supabase';
 import { supabase } from './supabaseClient';
+import { Comment, Story } from '@/types/supabase';
 import { fetchStoryById } from './storyApi';
+import { transformStoryData } from '../transformers/storyTransformer';
 
-// Like a story
-export const likeStory = async (id: string): Promise<Story | null> => {
+// Function to add a like to a story
+export const likeStory = async (storyId: string): Promise<Story | null> => {
   try {
-    // First, get current likes
-    const { data: storyData, error: fetchError } = await supabase
-      .from('stories')
-      .select('*')
-      .eq('id', id)
-      .maybeSingle();
-    
-    if (fetchError) {
-      console.error("Error fetching story likes:", fetchError);
-      throw fetchError;
-    }
-    
-    // Add null check for storyData
+    // First fetch the story to get current like count
+    const storyData = await fetchStoryById(storyId);
     if (!storyData) {
-      console.error("No story found with ID:", id);
-      throw new Error(`Story with ID ${id} not found`);
+      console.error("Story not found");
+      return null;
     }
+
+    // Increment likes count
+    const newLikes = (storyData.likes || 0) + 1;
     
-    const currentLikes = storyData.likes || 0;
-    const newLikes = currentLikes + 1;
-    
-    // Update likes with proper type casting
-    const { error: updateError } = await supabase
-      .from('stories' as any)
+    // Update story with new likes count
+    const { data, error } = await supabase
+      .from('stories')
       .update({ likes: newLikes } as any)
-      .eq('id', id);
-    
-    if (updateError) {
-      console.error("Error updating story likes:", updateError);
-      throw updateError;
-    }
-    
-    // Return updated story
-    return fetchStoryById(id);
-  } catch (error) {
-    console.error(`Failed to like story with ID ${id}:`, error);
-    // For demo purposes, just increment and return dummy data
-    const dummyStories = (await import('../mock/dummyStories')).getDummyStories();
-    const dummyStory = dummyStories.find(s => s.id === id);
-    if (dummyStory) {
-      dummyStory.likes += 1;
-      return dummyStory;
-    }
-    return null;
-  }
-};
-
-// Add a comment to a story
-export const addCommentToStory = async (
-  storyId: string, 
-  comment: { name: string; email: string; content: string; date?: string }
-): Promise<Story | null> => {
-  try {
-    // First, get current story
-    const story = await fetchStoryById(storyId);
-    if (!story) {
-      throw new Error(`Story with ID ${storyId} not found`);
-    }
-    
-    // Add date if not provided
-    const newComment: Comment = {
-      ...comment,
-      date: comment.date || new Date().toISOString(),
-      // Add legacy properties for backward compatibility
-      text: comment.content,
-      author: comment.name
-    };
-    
-    // Add new comment to the story
-    const updatedComments = [...story.comments, newComment];
-    
-    // Update comments in the database with proper type casting
-    const { error: updateError } = await supabase
-      .from('stories' as any)
-      .update({ comments: updatedComments } as any)
       .eq('id', storyId);
-    
-    if (updateError) {
-      console.error("Error updating story comments:", updateError);
-      throw updateError;
+
+    if (error) {
+      console.error("Error updating story likes:", error);
+      return null;
     }
-    
+
     // Return updated story
-    return fetchStoryById(storyId);
+    return { ...storyData, likes: newLikes };
   } catch (error) {
-    console.error(`Failed to add comment to story with ID ${storyId}:`, error);
-    
-    // For demo purposes, return a modified dummy story
-    const dummyStories = (await import('../mock/dummyStories')).getDummyStories();
-    const dummyStory = dummyStories.find(s => s.id === storyId);
-    if (dummyStory) {
-      dummyStory.comments.push(comment as Comment);
-      return dummyStory;
-    }
+    console.error("Failed to like story:", error);
     return null;
   }
 };
 
-// Legacy method for backward compatibility
+// Function to add a comment to a story
 export const addComment = async (
   storyId: string, 
-  comment: { text: string; author: string; }
-): Promise<Comment[]> => {
+  name: string, 
+  email: string, 
+  content: string
+): Promise<Comment | null> => {
   try {
-    // Convert legacy format to new format
-    const result = await addCommentToStory(storyId, {
-      name: comment.author,
-      email: 'anonymous@example.com',
-      content: comment.text,
-      date: new Date().toISOString()
-    });
+    // Create comment object
+    const newComment: Comment = {
+      name, 
+      email, 
+      content,
+      date: new Date().toISOString(),
+    };
     
-    return result?.comments || [];
+    return newComment;
   } catch (error) {
-    console.error(`Failed to add comment to story with ID ${storyId}:`, error);
-    // Return empty array in case of error
-    return [];
+    console.error("Failed to add comment:", error);
+    return null;
+  }
+};
+
+// Function to add a comment to a story and update it in the database
+export const addCommentToStory = async (
+  storyId: string, 
+  name: string, 
+  email: string, 
+  content: string
+): Promise<Story | null> => {
+  try {
+    // First get the current story with all existing comments
+    const storyData = await fetchStoryById(storyId);
+    if (!storyData) {
+      console.error("Story not found");
+      return null;
+    }
+
+    // Create a new comment
+    const newComment: Comment = {
+      name,
+      email,
+      content,
+      date: new Date().toISOString(),
+    };
+
+    // Add the new comment to the existing comments array
+    const updatedComments = [...(storyData.comments || []), newComment];
+    
+    // Update the story in the database with the new comments array
+    const { data, error } = await supabase
+      .from('stories')
+      .update({ comments: updatedComments } as any)
+      .eq('id', storyId);
+
+    if (error) {
+      console.error("Error updating story comments:", error);
+      return null;
+    }
+
+    // Return the updated story
+    return {
+      ...storyData,
+      comments: updatedComments,
+    };
+  } catch (error) {
+    console.error("Failed to add comment to story:", error);
+    return null;
   }
 };
