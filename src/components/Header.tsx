@@ -13,7 +13,7 @@ const Header = () => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Tangani event scroll untuk merubah style header
+  // Tangani event scroll untuk mengubah style header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -31,7 +31,7 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo dengan font asli */}
         <Link 
           to="/" 
           className="text-2xl md:text-3xl font-brand font-bold tracking-tight"
@@ -50,7 +50,7 @@ const Header = () => {
         {/* Tombol "Share Your Story" untuk desktop */}
         <Link 
           to="/contact" 
-          className="hidden md:flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+          className="hidden md:flex items-center rounded-full bg-green-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-800"
         >
           Share Your Story
         </Link>
@@ -79,7 +79,7 @@ const Header = () => {
           <NavLink to="/contact" className="py-2 text-lg">Kontak</NavLink>
           <Link 
             to="/contact" 
-            className="rounded-full bg-primary px-5 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-primary/90 mt-4"
+            className="rounded-full bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-green-800 mt-4"
           >
             Share Your Story
           </Link>
@@ -107,7 +107,7 @@ const NavLink = ({ to, children, className, exact = false }: NavLinkProps) => {
       to={to} 
       className={cn(
         "relative font-medium transition-colors",
-        isActive ? "text-primary" : "text-foreground hover:text-primary",
+        isActive ? "text-green-600" : "text-gray-800 hover:text-green-600",
         className
       )}
     >
