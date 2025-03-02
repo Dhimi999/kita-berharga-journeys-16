@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowRight, Send, PhoneCall, MapPin, Mail } from 'lucide-react';
@@ -150,56 +149,56 @@ const Contact = () => {
                 atau mengunjungi kantor kami selama jam kerja.
               </p>
               
-			<div className="space-y-6">
-				<div className="flex items-start">
-					<div className="w-10 h-10 bg-kb-mint/30 flex items-center justify-center rounded-full mr-4">
-						<PhoneCall size={20} className="text-primary" />
-					</div>
-					<div>
-						<h3 className="text-lg font-medium mb-1">Telepon</h3>
-						<div className="space-y-1">
-							<a
-								href="https://wa.me/62881036592711"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-muted-foreground block"
-							>
-								WhatsApp: +62 881 0365 92711
-							</a>
-							<a
-								href="tel:+628199483292"
-								className="text-muted-foreground block"
-							>
-								Telefon: +62 819 9483 292
-							</a>
-						</div>
-					</div>
-				</div>
-				
-				<div className="flex items-start">
-					<div className="w-10 h-10 bg-kb-peach/30 flex items-center justify-center rounded-full mr-4">
-						<Mail size={20} className="text-secondary-foreground" />
-					</div>
-					<div>
-						<h3 className="text-lg font-medium mb-1">Email</h3>
-						<div className="space-y-1">
-							<a
-								href="mailto:kitaberharga.id@gmail.com"
-								className="text-muted-foreground block"
-							>
-								kitaberharga.id@gmail.com
-							</a>
-							<a
-								href="mailto:support@kitaberharga.my.id"
-								className="text-muted-foreground block"
-							>
-								support@kitaberharga.my.id
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+              <div className="space-y-6">
+                {/* Bagian Telepon */}
+                <div className="flex items-start">
+                  <div className="w-10 h-10 bg-kb-mint/30 flex items-center justify-center rounded-full mr-4">
+                    <PhoneCall size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">Telepon</h3>
+                    {/* WhatsApp */}
+                    <a
+                      href="https://wa.me/62881036592711"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground block"
+                    >
+                      +62881036592711 (WA)
+                    </a>
+                    {/* Telepon Biasa */}
+                    <a
+                      href="tel:+6281235015278"
+                      className="text-muted-foreground block"
+                    >
+                      +6281235015278 (TELEPON)
+                    </a>
+                  </div>
+                </div>
                 
+                {/* Bagian Email */}
+                <div className="flex items-start">
+                  <div className="w-10 h-10 bg-kb-peach/30 flex items-center justify-center rounded-full mr-4">
+                    <Mail size={20} className="text-secondary-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium mb-1">Email</h3>
+                    <a
+                      href="mailto:kitaberharga.id@gmail.com"
+                      className="text-muted-foreground block"
+                    >
+                      kitaberharga.id@gmail.com
+                    </a>
+                    <a
+                      href="mailto:support@kitaberharga.my.id"
+                      className="text-muted-foreground block"
+                    >
+                      support@kitaberharga.my.id
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Bagian Lokasi */}
                 <div className="flex items-start">
                   <div className="w-10 h-10 bg-kb-blue/30 flex items-center justify-center rounded-full mr-4">
                     <MapPin size={20} className="text-accent-foreground" />
