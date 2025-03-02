@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowRight, Send, PhoneCall, MapPin, Mail } from 'lucide-react';
@@ -43,7 +44,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       {/* Banner Hero with added padding */}
-      <section className="py-16 md:py-24 pt-32 bg-gradient-to-r from-kb-peach/30 to-kb-mint/20">
+      <section className="py-16 md:py-24 pt-32 lg:pt-36 xl:pt-40 bg-gradient-to-r from-kb-peach/30 to-kb-mint/20">
         <div className="container mx-auto px-4 text-center">
           <span className="inline-block px-3 py-1 bg-kb-peach/50 rounded-full text-sm font-medium mb-4">
             Hubungi Kami
@@ -232,14 +233,21 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section */}
+      {/* Map Section with embedded Google Maps */}
       <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="rounded-xl overflow-hidden h-96 shadow-sm">
-            {/* Mock map dengan background */}
-            <div className="w-full h-full bg-kb-softgray flex items-center justify-center bg-gray-100">
-              <p className="text-muted-foreground">Peta Lokasi: Jember, Jawa Timur, Indonesia</p>
-            </div>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3795.0623950575655!2d113.69967497482268!3d-8.169132791861788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6943a42369d8f%3A0x8bd003425ec58c76!2sAlun-Alun%20Jember!5e1!3m2!1sen!2sid!4v1740909648131!5m2!1sen!2sid" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Lokasi Kita Berharga"
+              className="w-full h-full"
+            ></iframe>
           </div>
         </div>
       </section>
