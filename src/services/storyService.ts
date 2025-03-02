@@ -116,7 +116,7 @@ export const addCommentToStory = async (id: string, comment: any): Promise<Story
   } else if (story.comments) {
     try {
       // Try to parse if it's a JSON string
-      const parsed = JSON.parse(story.comments);
+      const parsed = JSON.parse(String(story.comments));
       if (Array.isArray(parsed)) {
         currentComments = parsed;
       }
