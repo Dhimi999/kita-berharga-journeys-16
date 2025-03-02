@@ -176,15 +176,16 @@ const transformStoryData = (data: any): Story => {
                 // Handle case where the first value is itself an array
                 comments = possibleArray[0] as any[];
               } else {
-                // Fix: Make sure we're only including string and object types
+                // Fix for TypeScript error: Convert all values to strings or objects
                 comments = possibleArray
-                  .filter(item => typeof item === 'object' || typeof item === 'string')
+                  .filter(item => item !== null && item !== undefined)
                   .map(item => {
-                    // Convert numbers or booleans to strings if they somehow ended up here
-                    if (typeof item !== 'object' && typeof item !== 'string') {
+                    if (typeof item === 'object') {
+                      return item;
+                    } else {
+                      // Convert numbers, booleans, etc. to strings
                       return String(item);
                     }
-                    return item;
                   }) as any[];
               }
             }
