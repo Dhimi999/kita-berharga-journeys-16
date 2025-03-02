@@ -1,7 +1,5 @@
-
 import { createClient } from '@supabase/supabase-js';
-import { Database } from '@/types/supabase';
-import { Comment, Story } from '@/types/supabase';
+import { Database, Comment, Story } from '@/types/supabase';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
@@ -21,11 +19,18 @@ export const transformStoryData = (data: any): Story => {
         if (Array.isArray(parsedComments)) {
           comments = parsedComments.map(comment => {
             if (typeof comment === 'string') {
-              return { text: comment, author: 'Anonymous', date: new Date().toISOString() };
+              return { 
+                name: 'Anonymous', 
+                email: 'anonymous@example.com', 
+                content: comment, 
+                date: new Date().toISOString() 
+              };
             } else {
+              // Convert legacy format to new format
               return {
-                text: comment.text || '',
-                author: comment.author || 'Anonymous',
+                name: comment.author || comment.name || 'Anonymous',
+                email: comment.email || 'anonymous@example.com',
+                content: comment.text || comment.content || '',
                 date: comment.date || new Date().toISOString()
               };
             }
@@ -35,11 +40,18 @@ export const transformStoryData = (data: any): Story => {
         // If comments is already an array
         comments = data.comments.map(comment => {
           if (typeof comment === 'string') {
-            return { text: comment, author: 'Anonymous', date: new Date().toISOString() };
+            return { 
+              name: 'Anonymous', 
+              email: 'anonymous@example.com', 
+              content: comment, 
+              date: new Date().toISOString() 
+            };
           } else {
+            // Convert legacy format to new format
             return {
-              text: comment.text || '',
-              author: comment.author || 'Anonymous',
+              name: comment.author || comment.name || 'Anonymous',
+              email: comment.email || 'anonymous@example.com',
+              content: comment.text || comment.content || '',
               date: comment.date || new Date().toISOString()
             };
           }
@@ -140,6 +152,9 @@ export const getFeaturedStories = async (limit: number = 3): Promise<Story[]> =>
   }
 };
 
+// Alias for backward compatibility
+export const fetchFeaturedStories = getFeaturedStories;
+
 // Function to get categories with counts
 export const getCategories = async (): Promise<{ name: string; count: number }[]> => {
   try {
@@ -170,12 +185,12 @@ export const getCategories = async (): Promise<{ name: string; count: number }[]
 };
 
 // Like a story
-export const likeStory = async (id: string): Promise<number> => {
+export const likeStory = async (id: string): Promise<Story | null> => {
   try {
     // First, get current likes
     const { data: storyData, error: fetchError } = await supabase
       .from('stories')
-      .select('likes')
+      .select('*')
       .eq('id', id)
       .single();
     
@@ -198,59 +213,45 @@ export const likeStory = async (id: string): Promise<number> => {
       throw updateError;
     }
     
-    return newLikes;
+    // Return updated story
+    return fetchStoryById(id);
   } catch (error) {
     console.error(`Failed to like story with ID ${id}:`, error);
-    // For demo purposes, just increment and return
-    return 1;
+    // For demo purposes, just increment and return dummy data
+    const dummyStory = getDummyStories().find(s => s.id === id);
+    if (dummyStory) {
+      dummyStory.likes += 1;
+      return dummyStory;
+    }
+    return null;
   }
 };
 
 // Add a comment to a story
-export const addComment = async (
+export const addCommentToStory = async (
   storyId: string, 
-  comment: { text: string; author: string; }
-): Promise<Comment[]> => {
+  comment: { name: string; email: string; content: string; date?: string }
+): Promise<Story | null> => {
   try {
-    // First, get current comments
-    const { data: storyData, error: fetchError } = await supabase
-      .from('stories')
-      .select('comments')
-      .eq('id', storyId)
-      .single();
-    
-    if (fetchError) {
-      console.error("Error fetching story comments:", fetchError);
-      throw fetchError;
+    // First, get current story
+    const story = await fetchStoryById(storyId);
+    if (!story) {
+      throw new Error(`Story with ID ${storyId} not found`);
     }
     
-    // Parse existing comments or initialize empty array
-    let comments: Comment[] = [];
-    if (storyData?.comments) {
-      try {
-        if (typeof storyData.comments === 'string') {
-          comments = JSON.parse(storyData.comments);
-        } else if (Array.isArray(storyData.comments)) {
-          comments = storyData.comments;
-        }
-      } catch (e) {
-        console.error("Error parsing comments:", e);
-        comments = [];
-      }
-    }
-    
-    // Add new comment with date
+    // Add date if not provided
     const newComment: Comment = {
       ...comment,
-      date: new Date().toISOString()
+      date: comment.date || new Date().toISOString()
     };
     
-    comments.push(newComment);
+    // Add new comment to the story
+    const updatedComments = [...story.comments, newComment];
     
-    // Update comments
+    // Update comments in the database
     const { error: updateError } = await supabase
       .from('stories')
-      .update({ comments: JSON.stringify(comments) })
+      .update({ comments: updatedComments })
       .eq('id', storyId);
     
     if (updateError) {
@@ -258,17 +259,40 @@ export const addComment = async (
       throw updateError;
     }
     
-    return comments;
+    // Return updated story
+    return fetchStoryById(storyId);
   } catch (error) {
     console.error(`Failed to add comment to story with ID ${storyId}:`, error);
-    // For demo purposes, return mock comment
-    return [
-      {
-        text: comment.text,
-        author: comment.author,
-        date: new Date().toISOString()
-      }
-    ];
+    
+    // For demo purposes, return a modified dummy story
+    const dummyStory = getDummyStories().find(s => s.id === storyId);
+    if (dummyStory) {
+      dummyStory.comments.push(comment as Comment);
+      return dummyStory;
+    }
+    return null;
+  }
+};
+
+// Legacy method for backward compatibility
+export const addComment = async (
+  storyId: string, 
+  comment: { text: string; author: string; }
+): Promise<Comment[]> => {
+  try {
+    // Convert legacy format to new format
+    const result = await addCommentToStory(storyId, {
+      name: comment.author,
+      email: 'anonymous@example.com',
+      content: comment.text,
+      date: new Date().toISOString()
+    });
+    
+    return result?.comments || [];
+  } catch (error) {
+    console.error(`Failed to add comment to story with ID ${storyId}:`, error);
+    // Return empty array in case of error
+    return [];
   }
 };
 
@@ -310,13 +334,15 @@ const getDummyStories = (): Story[] => {
       likes: 124,
       comments: [
         {
-          text: 'Kisah yang sangat menginspirasi. Terima kasih telah berbagi!',
-          author: 'Maya',
+          name: 'Maya',
+          email: 'maya@example.com',
+          content: 'Kisah yang sangat menginspirasi. Terima kasih telah berbagi!',
           date: new Date().toISOString()
         },
         {
-          text: 'Saya juga pernah kehilangan orang tua dan kisah ini sangat menyentuh hati saya.',
-          author: 'Budi',
+          name: 'Budi',
+          email: 'budi@example.com',
+          content: 'Saya juga pernah kehilangan orang tua dan kisah ini sangat menyentuh hati saya.',
           date: new Date().toISOString()
         }
       ],
@@ -348,8 +374,9 @@ const getDummyStories = (): Story[] => {
       likes: 89,
       comments: [
         {
-          text: 'Terima kasih sudah berbagi pengalaman ini. Saya juga sedang berjuang dengan kecemasan sosial.',
-          author: 'Rina',
+          name: 'Rina',
+          email: 'rina@example.com',
+          content: 'Terima kasih sudah berbagi pengalaman ini. Saya juga sedang berjuang dengan kecemasan sosial.',
           date: new Date().toISOString()
         }
       ],
@@ -363,7 +390,7 @@ const getDummyStories = (): Story[] => {
         
         <p>Saat beranjak dewasa, aku membawa kemarahan dan kepahitan itu. Aku berjanji pada diriku sendiri untuk tidak pernah memaafkannya. Aku pindah ke kota lain, memutuskan hubungan, dan mencoba membangun hidupku sendiri. Tetapi meski dengan jarak fisik, secara emosional aku masih terikat dengan masa laluku.</p>
         
-        <p>Kepahitan itu mempengaruhi hubunganku dengan orang lain. Aku kesulitan percaya, cepat marah, dan selalu ketakutan bahwa orang-orang yang aku cintai akan menyakitiku. Aku menyadari bahwa dengan membawa kebencian ini, aku masih membiarkan masa laluku mengontrol hidupku.</p>
+        <p>Kepahitan itu mempengaruhi hubunganku dengan orang lain. Aku kesulitan percaya, cepat marah, dan selalu ketakutan bahwa orang-orang yang aku cintai akan menyakitiku. Aku menyadari bahwa dengan membawa kebencian ini, aku masih membiarkan masa lalu mengontrol hidupku.</p>
         
         <p>Perubahan mulai terjadi ketika aku mengikuti sebuah lokakarya tentang pemaafan. Di sana, aku belajar bahwa memaafkan bukanlah tentang melupakan atau membenarkan perbuatan seseorang, tetapi tentang membebaskan diriku sendiri dari beban masa lalu.</p>
         
@@ -385,18 +412,21 @@ const getDummyStories = (): Story[] => {
       likes: 153,
       comments: [
         {
-          text: 'Inspiratif sekali. Memaafkan memang sangat sulit tapi sangat membebaskan.',
-          author: 'Dian',
+          name: 'Dian',
+          email: 'dian@example.com',
+          content: 'Inspiratif sekali. Memaafkan memang sangat sulit tapi sangat membebaskan.',
           date: new Date().toISOString()
         },
         {
-          text: 'Saya menangis membaca ini. Terima kasih telah mengingatkan saya tentang kekuatan memaafkan.',
-          author: 'Hendra',
+          name: 'Hendra',
+          email: 'hendra@example.com',
+          content: 'Saya menangis membaca ini. Terima kasih telah mengingatkan saya tentang kekuatan memaafkan.',
           date: new Date().toISOString()
         },
         {
-          text: 'Apakah Anda pernah mencoba terapi khusus? Saya sedang dalam perjalanan yang sama.',
-          author: 'Anita',
+          name: 'Anita',
+          email: 'anita@example.com',
+          content: 'Apakah Anda pernah mencoba terapi khusus? Saya sedang dalam perjalanan yang sama.',
           date: new Date().toISOString()
         }
       ],
@@ -430,13 +460,15 @@ const getDummyStories = (): Story[] => {
       likes: 215,
       comments: [
         {
-          text: 'Luar biasa inspiratif! Saya dari NTT juga dan kisah Anda memberikan harapan bagi banyak anak muda di sana.',
-          author: 'Maria',
+          name: 'Maria',
+          email: 'maria@example.com',
+          content: 'Luar biasa inspiratif! Saya dari NTT juga dan kisah Anda memberikan harapan bagi banyak anak muda di sana.',
           date: new Date().toISOString()
         },
         {
-          text: 'Semoga proyek infrastruktur yang Anda pimpin bisa menjangkau lebih banyak desa terpencil.',
-          author: 'Rudi',
+          name: 'Rudi',
+          email: 'rudi@example.com',
+          content: 'Semoga proyek infrastruktur yang Anda pimpin bisa menjangkau lebih banyak desa terpencil.',
           date: new Date().toISOString()
         }
       ],
@@ -472,18 +504,21 @@ const getDummyStories = (): Story[] => {
       likes: 178,
       comments: [
         {
-          text: 'Saya sedang berada di posisi yang sama sekarang. Artikel ini memberikan saya keberanian untuk mempertimbangkan perubahan.',
-          author: 'Joko',
+          name: 'Joko',
+          email: 'joko@example.com',
+          content: 'Saya sedang berada di posisi yang sama sekarang. Artikel ini memberikan saya keberanian untuk mempertimbangkan perubahan.',
           date: new Date().toISOString()
         },
         {
-          text: 'Apakah Anda memiliki saran untuk seseorang yang ingin mengubah karir tapi takut akan konsekuensi finansialnya?',
-          author: 'Sinta',
+          name: 'Sinta',
+          email: 'sinta@example.com',
+          content: 'Apakah Anda memiliki saran untuk seseorang yang ingin mengubah karir tapi takut akan konsekuensi finansialnya?',
           date: new Date().toISOString()
         },
         {
-          text: 'Blog Anda sangat membantu! Terima kasih telah berbagi pengalaman Anda.',
-          author: 'Fajar',
+          name: 'Fajar',
+          email: 'fajar@example.com',
+          content: 'Blog Anda sangat membantu! Terima kasih telah berbagi pengalaman Anda.',
           date: new Date().toISOString()
         }
       ],

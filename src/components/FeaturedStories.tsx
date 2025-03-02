@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import StoryCard from './StoryCard';
-import { fetchFeaturedStories } from '../services/storyService';
+import { getFeaturedStories } from '../services/storyService';
 import { Story } from '../types/supabase';
 
 const FeaturedStories = () => {
@@ -15,7 +15,8 @@ const FeaturedStories = () => {
     const loadStories = async () => {
       setLoading(true);
       try {
-        const fetchedStories = await fetchFeaturedStories(5);
+        // Updated to use getFeaturedStories instead of fetchFeaturedStories
+        const fetchedStories = await getFeaturedStories(5);
         if (fetchedStories.length > 0) {
           // Create a new array with the first story marked as featured
           const storiesWithFeatured = fetchedStories.map((story, index) => ({

@@ -8,10 +8,11 @@ export interface Story {
   date?: string;
   category: string;
   likes: number;
-  comments: any[];
+  comments: Comment[];
   header_image?: string;
   featured?: boolean;
   imageUrl?: string;
+  tags?: string[]; // Add tags property to fix related errors
 }
 
 export interface Comment {
@@ -19,6 +20,9 @@ export interface Comment {
   email: string;
   content: string;
   date: string;
+  // Legacy properties for backward compatibility
+  text?: string;
+  author?: string;
 }
 
 export interface Admin {
@@ -28,3 +32,6 @@ export interface Admin {
   role?: string;
   created_at?: string;
 }
+
+// Minimal Database type for Supabase client
+export interface Database {}
