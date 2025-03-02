@@ -9,7 +9,7 @@ export const fetchAllStories = async (): Promise<Story[]> => {
   const { data, error } = await supabase
     .from('stories')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false });  // Order by newest first
 
   if (error) {
     console.error('Error fetching stories:', error);

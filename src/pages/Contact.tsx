@@ -43,8 +43,8 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Banner Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-kb-peach/30 to-kb-mint/20">
+      {/* Banner Hero with added padding */}
+      <section className="py-16 md:py-24 pt-32 bg-gradient-to-r from-kb-peach/30 to-kb-mint/20">
         <div className="container mx-auto px-4 text-center">
           <span className="inline-block px-3 py-1 bg-kb-peach/50 rounded-full text-sm font-medium mb-4">
             Hubungi Kami
@@ -157,7 +157,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Telepon</h3>
-                    <p className="text-muted-foreground">+62 812 3456 7890</p>
+                    <p className="text-muted-foreground">+62881036592711 (WA)</p>
+                    <p className="text-muted-foreground">+6281235015278 (TELEPON)</p>
                   </div>
                 </div>
                 
@@ -167,7 +168,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Email</h3>
-                    <p className="text-muted-foreground">info@kitaberharga.id</p>
+                    <p className="text-muted-foreground">kitaberharga.id@gmail.com</p>
+                    <p className="text-muted-foreground">support@kitaberharga.my.id</p>
                   </div>
                 </div>
                 
@@ -178,9 +180,7 @@ const Contact = () => {
                   <div>
                     <h3 className="text-lg font-medium mb-1">Lokasi</h3>
                     <p className="text-muted-foreground">
-                      Jl. Inspirasi No. 123<br />
-                      Jakarta Selatan, 12345<br />
-                      Indonesia
+                      Jember, Jawa Timur, Indonesia
                     </p>
                   </div>
                 </div>
@@ -194,10 +194,10 @@ const Contact = () => {
                   atau email dengan subjek "Pengajuan Cerita".
                 </p>
                 <a 
-                  href="mailto:story@kitaberharga.id?subject=Pengajuan%20Cerita"
+                  href="mailto:kitaberharga.id@gmail.com?subject=Pengajuan%20Cerita"
                   className="inline-flex items-center text-primary font-medium hover:underline"
                 >
-                  Kirim cerita Anda ke story@kitaberharga.id
+                  Kirim cerita Anda ke kitaberharga.id@gmail.com
                   <ArrowRight size={16} className="ml-2" />
                 </a>
               </div>
@@ -211,8 +211,8 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="rounded-xl overflow-hidden h-96 shadow-sm">
             {/* Mock map dengan background */}
-            <div className="w-full h-full bg-kb-softgray flex items-center justify-center">
-              <p className="text-muted-foreground">Peta Lokasi Kantor</p>
+            <div className="w-full h-full bg-kb-softgray flex items-center justify-center bg-gray-100">
+              <p className="text-muted-foreground">Peta Lokasi: Jember, Jawa Timur, Indonesia</p>
             </div>
           </div>
         </div>
