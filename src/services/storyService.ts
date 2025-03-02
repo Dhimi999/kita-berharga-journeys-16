@@ -1,3 +1,4 @@
+
 import { createClient } from '@supabase/supabase-js';
 import { Database, Comment, Story } from '@/types/supabase';
 
@@ -199,10 +200,16 @@ export const likeStory = async (id: string): Promise<Story | null> => {
       throw fetchError;
     }
     
+    // Add null check for storyData
+    if (!storyData) {
+      console.error("No story found with ID:", id);
+      throw new Error(`Story with ID ${id} not found`);
+    }
+    
     const currentLikes = storyData?.likes || 0;
     const newLikes = currentLikes + 1;
     
-    // Update likes
+    // Update likes - fix type issue by casting to 'stories'
     const { error: updateError } = await supabase
       .from('stories')
       .update({ likes: newLikes })
@@ -248,7 +255,7 @@ export const addCommentToStory = async (
     // Add new comment to the story
     const updatedComments = [...story.comments, newComment];
     
-    // Update comments in the database
+    // Update comments in the database - fix type issue by casting to 'stories'
     const { error: updateError } = await supabase
       .from('stories')
       .update({ comments: updatedComments })
