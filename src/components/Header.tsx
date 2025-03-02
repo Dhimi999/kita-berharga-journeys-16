@@ -34,7 +34,7 @@ const Header = () => {
         {/* Logo dengan font asli */}
         <Link 
           to="/" 
-          className="text-2xl md:text-3xl font-brand font-bold tracking-tight"
+          className="text-2xl md:text-3xl font-serif font-bold tracking-tight"
         >
           Kita Berharga
         </Link>
