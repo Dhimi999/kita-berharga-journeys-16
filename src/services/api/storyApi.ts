@@ -4,12 +4,13 @@ import { supabase } from './supabaseClient';
 import { transformStoryData } from '../transformers/storyTransformer';
 import { getDummyStories } from '../mock/dummyStories';
 
-// Fetch all stories from the database
+// Fetch all published stories from the database
 export const fetchAllStories = async (): Promise<Story[]> => {
   try {
     const { data, error } = await supabase
       .from('stories')
       .select('*')
+      .eq('status', 'published')
       .order('date', { ascending: false });  // Sort by date, newest first
 
     if (error) {
@@ -31,13 +32,14 @@ export const fetchAllStories = async (): Promise<Story[]> => {
   }
 };
 
-// Fetch a single story by ID
+// Fetch a single story by ID (only published stories)
 export const fetchStoryById = async (id: string): Promise<Story | null> => {
   try {
     const { data, error } = await supabase
       .from('stories')
       .select('*')
       .eq('id', id)
+      .eq('status', 'published')
       .maybeSingle();
 
     if (error) {
@@ -65,11 +67,26 @@ export const fetchStoryById = async (id: string): Promise<Story | null> => {
 // Get featured stories (could be based on likes, category, etc.)
 export const getFeaturedStories = async (limit: number = 3): Promise<Story[]> => {
   try {
-    const allStories = await fetchAllStories();
-    // Sort by likes (or any other criteria you want to use for featuring)
-    return allStories
-      .sort((a, b) => (b.likes || 0) - (a.likes || 0))
-      .slice(0, limit);
+    const { data, error } = await supabase
+      .from('stories')
+      .select('*')
+      .eq('status', 'published')
+      .order('likes', { ascending: false })
+      .limit(limit);
+
+    if (error) {
+      console.error("Error fetching featured stories:", error);
+      throw error;
+    }
+
+    if (!data || data.length === 0) {
+      // Get dummy stories and sort by likes
+      return getDummyStories()
+        .sort((a, b) => (b.likes || 0) - (a.likes || 0))
+        .slice(0, limit);
+    }
+
+    return data.map(transformStoryData);
   } catch (error) {
     console.error("Failed to fetch featured stories:", error);
     return getDummyStories().slice(0, limit);

@@ -12,6 +12,8 @@ export interface Story {
   header_image?: string;
   featured?: boolean;
   imageUrl?: string;
+  status?: string;
+  tags?: string[];
 }
 
 export interface Comment {

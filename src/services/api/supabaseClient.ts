@@ -1,6 +1,5 @@
 
 import { createClient } from '@supabase/supabase-js';
-import { Database } from '@/types/supabase';
 
 // Use environment variables or fallback to empty strings
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
@@ -11,7 +10,7 @@ const isValidUrl = supabaseUrl && supabaseUrl !== 'https://your-project.supabase
 
 // Create client with proper error handling
 export const supabase = isValidUrl 
-  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey)
   : {
       // Provide mock implementation that won't throw runtime errors
       from: () => ({

@@ -1,3 +1,4 @@
+
 import { Comment, Story } from '@/types/supabase';
 
 // Helper function to transform the story data from Supabase format to our Story type
@@ -82,6 +83,7 @@ export const transformStoryData = (data: any): Story => {
     header_image: data.header_image || null,
     likes: data.likes || 0,
     comments: comments,
+    status: data.status || 'published',
     tags: data.tags || []
   };
 };
