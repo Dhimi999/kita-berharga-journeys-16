@@ -39,7 +39,7 @@ const About = () => {
               </div>
             </div>
             <div className="rounded-xl overflow-hidden shadow-md">
-              <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31" alt="Perjalanan Kita Berharga" className="w-full h-80 object-cover" />
+              <img alt="Perjalanan Kita Berharga" className="w-full h-80 object-cover" src="https://plus.unsplash.com/premium_photo-1661719880750-4c0de579cd09?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
             </div>
           </div>
         </div>
