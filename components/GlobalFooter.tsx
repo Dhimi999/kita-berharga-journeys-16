@@ -60,8 +60,9 @@ const GlobalFooter = () => {
           
           <div>
             <h4 className="text-lg font-medium mb-4">Hubungi Kami</h4>
-            <p className="text-muted-foreground mb-2">info@kitaberharga.id</p>
-            <p className="text-muted-foreground">Jakarta, Indonesia</p>
+            <p className="text-muted-foreground mb-2">kitaberharga.idn@gmail.com</p>
+            <p className="text-muted-foreground mb-2">support@kitaberharga.my.id</p>
+            <p className="text-muted-foreground">Jember, Indonesia</p>
           </div>
         </div>
         
