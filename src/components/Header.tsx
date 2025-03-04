@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,7 +22,16 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  return <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5")}>
+
+  return (
+    <header 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full", 
+        isScrolled 
+          ? "bg-white/90 backdrop-blur-md shadow-sm py-4" 
+          : "bg-transparent py-6"
+      )}
+    >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo dengan font asli */}
         <Link to="/" className="text-2xl md:text-3xl font-serif font-bold tracking-tight">
@@ -58,14 +69,17 @@ const Header = () => {
           </Link>
         </div>
       </div>
-    </header>;
+    </header>
+  );
 };
+
 interface NavLinkProps {
   to: string;
   children: React.ReactNode;
   className?: string;
   exact?: boolean;
 }
+
 const NavLink = ({
   to,
   children,
@@ -74,8 +88,19 @@ const NavLink = ({
 }: NavLinkProps) => {
   const location = useLocation();
   const isActive = exact ? location.pathname === to : location.pathname.startsWith(to) && !(to === '/' && location.pathname !== '/');
-  return <Link to={to} className={cn("relative font-medium transition-colors", isActive ? "text-green-600" : "text-gray-800 hover:text-green-600", className)}>
+
+  return (
+    <Link 
+      to={to} 
+      className={cn(
+        "relative font-medium transition-colors", 
+        isActive ? "text-green-600" : "text-gray-800 hover:text-green-600", 
+        className
+      )}
+    >
       {children}
-    </Link>;
+    </Link>
+  );
 };
+
 export default Header;

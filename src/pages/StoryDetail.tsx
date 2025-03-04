@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToast } from "@/components/ui/use-toast";
@@ -55,13 +54,22 @@ const StoryDetail = () => {
       date: new Date().toISOString(),
     };
     
-    const updatedStory = await addCommentToStory(id, newComment);
-    
-    if (updatedStory) {
-      setStory(updatedStory);
+    try {
+      const updatedStory = await addCommentToStory(id, newComment);
+      
+      if (updatedStory) {
+        setStory(updatedStory);
+        toast({
+          title: "Komentar terkirim",
+          description: "Terima kasih atas tanggapan Anda!",
+        });
+      }
+    } catch (err) {
+      console.error('Failed to add comment:', err);
       toast({
-        title: "Komentar terkirim",
-        description: "Terima kasih atas tanggapan Anda!",
+        title: "Gagal mengirim komentar",
+        description: "Mohon coba lagi nanti",
+        variant: "destructive"
       });
     }
   };
