@@ -34,7 +34,7 @@ const QuotesSection = () => {
       <div className="container mx-auto max-w-4xl">
         <div className="flex justify-center">
           <div className="w-full max-w-4xl text-center px-6 py-10 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-kb-mint/20">
-            <div className="relative h-44 md:h-32 lg:h-32 xl:h-32 flex items-center justify-center overflow-hidden">
+            <div className="relative h-48 md:h-32 lg:h-32 xl:h-32 flex items-center justify-center overflow-hidden">
               <div className={`absolute transition-all duration-500 ease-in-out ${isAnimating ? 'opacity-0 transform -translate-y-8' : 'opacity-100 transform translate-y-0'}`}>
                 <p className="text-xl md:text-2xl sm:text-sm xs:text-sm font-serif text-gray-800 mb-3 italic">
                   "{quotes[currentQuoteIndex].text}"
