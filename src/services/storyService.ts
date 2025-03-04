@@ -227,7 +227,7 @@ const transformStoryData = (data: any): Story => {
     title: data.title,
     author: data.author,
     content: data.content,
-    excerpt: data.content ? data.content.substring(0, 150) + '...' : '',
+    excerpt: data.brief || (data.content ? data.content.substring(0, 150) + '...' : ''),
     date: formattedDateString, // Use the formatted date string directly here
     category: data.category,
     likes: data.likes || 0,
@@ -235,5 +235,6 @@ const transformStoryData = (data: any): Story => {
     header_image: data.header_image,
     imageUrl: data.header_image, // Map the header_image to imageUrl for StoryCard component
     featured: false, // Default value for featured property
+    brief: data.brief
   };
 };

@@ -15,6 +15,7 @@ export type Database = {
           email: string
           id: string
           password: string
+          profile_image_url: string | null
           role: string | null
           username: string
         }
@@ -23,6 +24,7 @@ export type Database = {
           email: string
           id?: string
           password: string
+          profile_image_url?: string | null
           role?: string | null
           username: string
         }
@@ -31,6 +33,7 @@ export type Database = {
           email?: string
           id?: string
           password?: string
+          profile_image_url?: string | null
           role?: string | null
           username?: string
         }
@@ -39,6 +42,7 @@ export type Database = {
       stories: {
         Row: {
           author: string
+          brief: string | null
           category: string
           comments: Json | null
           content: string
@@ -52,6 +56,7 @@ export type Database = {
         }
         Insert: {
           author: string
+          brief?: string | null
           category: string
           comments?: Json | null
           content: string
@@ -65,6 +70,7 @@ export type Database = {
         }
         Update: {
           author?: string
+          brief?: string | null
           category?: string
           comments?: Json | null
           content?: string

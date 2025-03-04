@@ -14,6 +14,7 @@ export interface Story {
   imageUrl?: string;
   status?: string;
   tags?: string[];
+  brief?: string;
 }
 
 export interface Comment {
