@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import FeaturedStories from '../components/FeaturedStories';
@@ -6,38 +5,30 @@ import QuotesSection from '../components/QuotesSection';
 import LoadingScreen from '../components/LoadingScreen';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Share2, MessageCircle } from 'lucide-react';
-
 const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-
     window.addEventListener('scroll', handleScroll);
-    
+
     // Simulate loading time - remove in production and use actual content loading detection
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(timer);
     };
   }, []);
-
   if (isLoading) {
     return <LoadingScreen />;
   }
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <HeroSection />
       
       {/* Quotes Section */}
@@ -66,10 +57,7 @@ const Index = () => {
                 Bergabunglah dengan komunitas kami untuk membaca cerita-cerita inspiratif atau 
                 berbagi cerita Anda sendiri untuk menginspirasi orang lain.
               </p>
-              <Link
-                to="/about"
-                className="inline-flex items-center text-primary font-medium hover:underline"
-              >
+              <Link to="/about" className="inline-flex items-center text-primary font-medium hover:underline">
                 Selengkapnya tentang Kita Berharga
                 <ArrowRight size={16} className="ml-2" />
               </Link>
@@ -77,12 +65,7 @@ const Index = () => {
             <div className="order-1 lg:order-2 animate-scale-in">
               <div className="relative">
                 <div className="w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1501854140801-50d01698950b" 
-                    alt="Komunitas Kita Berharga" 
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
+                  <img alt="Komunitas Kita Berharga" className="w-full h-full object-cover" loading="lazy" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
                 </div>
                 <div className="absolute -bottom-5 -right-5 glass p-4 rounded-lg shadow-md max-w-xs">
                   <p className="text-sm font-medium">
@@ -154,17 +137,12 @@ const Index = () => {
             Bagikan cerita Anda dan jadilah bagian dari komunitas yang saling menginspirasi. 
             Cerita Anda mungkin adalah jawaban yang dicari seseorang saat ini.
           </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:shadow-lg"
-          >
+          <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:shadow-lg">
             Bagikan Ceritamu Sekarang
             <Heart size={18} className="ml-2" />
           </Link>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
