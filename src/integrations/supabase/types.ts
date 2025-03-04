@@ -11,31 +11,112 @@ export type Database = {
     Tables: {
       admins: {
         Row: {
-          created_at: string | null
+          created_at: string
           email: string
-          id: string
+          full_name: string
+          id: number
           password: string
-          profile_image_url: string | null
-          role: string | null
+          role: string
           username: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           email: string
-          id?: string
+          full_name: string
+          id?: number
           password: string
-          profile_image_url?: string | null
-          role?: string | null
-          username: string
+          role: string
+          username?: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: number
+          password?: string
+          role?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      broadcasts: {
+        Row: {
+          author: string
+          clicked_count: number | null
+          content: string
+          created_at: string
+          delivered_count: number | null
+          id: string
+          opened_count: number | null
+          recipients: Json | null
+          scheduled_for: string | null
+          sent_at: string | null
+          sent_count: number | null
+          status: string
+          title: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          clicked_count?: number | null
+          content: string
+          created_at?: string
+          delivered_count?: number | null
+          id?: string
+          opened_count?: number | null
+          recipients?: Json | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sent_count?: number | null
+          status?: string
+          title: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          clicked_count?: number | null
+          content?: string
+          created_at?: string
+          delivered_count?: number | null
+          id?: string
+          opened_count?: number | null
+          recipients?: Json | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sent_count?: number | null
+          status?: string
+          title?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          subject: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          subject: string
+        }
+        Update: {
+          created_at?: string
           email?: string
           id?: string
-          password?: string
-          profile_image_url?: string | null
-          role?: string | null
-          username?: string
+          message?: string
+          name?: string
+          subject?: string
         }
         Relationships: []
       }
@@ -81,6 +162,42 @@ export type Database = {
           published_at?: string | null
           status?: string
           title?: string
+        }
+        Relationships: []
+      }
+      story_submissions: {
+        Row: {
+          agree_to_publish: boolean
+          contact_preference: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          status: string
+          story_brief: string
+          whatsapp: string
+        }
+        Insert: {
+          agree_to_publish?: boolean
+          contact_preference: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          status?: string
+          story_brief: string
+          whatsapp: string
+        }
+        Update: {
+          agree_to_publish?: boolean
+          contact_preference?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          status?: string
+          story_brief?: string
+          whatsapp?: string
         }
         Relationships: []
       }

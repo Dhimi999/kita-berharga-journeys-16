@@ -2,8 +2,12 @@
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowRight, Send, PhoneCall, MapPin, Mail } from 'lucide-react';
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Contact = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
@@ -18,13 +22,22 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulasi pengiriman form
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Insert the form data into the contact_messages table
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        }]);
+      
+      if (error) throw error;
       
       toast({
         title: "Pesan Terkirim!",
@@ -38,7 +51,20 @@ const Contact = () => {
         subject: '',
         message: '',
       });
-    }, 1500);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Gagal Mengirim Pesan",
+        description: "Terjadi kesalahan saat mengirim pesan Anda. Silakan coba lagi nanti.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleShareStory = () => {
+    navigate('/share-story');
   };
 
   return (
@@ -217,16 +243,15 @@ const Contact = () => {
                 <h3 className="text-lg font-semibold mb-2">Punya Cerita Inspiratif?</h3>
                 <p className="text-muted-foreground mb-4">
                   Kami selalu mencari cerita inspiratif untuk dibagikan dengan komunitas kami. 
-                  Jika Anda memiliki cerita yang ingin dibagikan, hubungi kami melalui form 
-                  atau email dengan subjek "Pengajuan Cerita".
+                  Anda bisa mengisi form berikut untuk membagikan cerita Anda.
                 </p>
-                <a 
-                  href="mailto:kitaberharga.idn@gmail.com?subject=Pengajuan%20Cerita"
-                  className="inline-flex items-center text-primary font-medium hover:underline"
+                <Button 
+                  onClick={handleShareStory}
+                  className="inline-flex items-center text-primary-foreground font-medium bg-primary hover:bg-primary/90"
                 >
-                  Kirim cerita Anda ke kitaberharga.idn@gmail.com
+                  Bagikan Cerita Anda
                   <ArrowRight size={16} className="ml-2" />
-                </a>
+                </Button>
               </div>
             </div>
           </div>
