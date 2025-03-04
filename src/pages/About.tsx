@@ -1,11 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-
 const About = () => {
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       {/* Banner Hero with Added Padding */}
       <section className="py-16 md:py-24 pt-32 lg:pt-36 xl:pt-40 bg-gradient-to-r from-kb-mint/30 to-kb-blue/20">
         <div className="container mx-auto px-4 text-center">
@@ -26,9 +23,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">
-                Perjalanan Kami
-              </h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Perjalanan "Kita Berharga"</h2>
               <div className="space-y-4">
                 <p>
                   Kita Berharga dimulai sebagai proyek kecil pada tahun 2024 dengan misi sederhana: menciptakan ruang 
@@ -40,19 +35,11 @@ const About = () => {
                   didengar, dan bahwa dengan membagikan cerita-cerita tersebut, kita dapat menginspirasi, 
                   memberdayakan, dan mengingatkan bahwa kita semua berharga.
                 </p>
-                <p>
-                  Sejak awal, fokus kami adalah menciptakan komunitas yang inklusif, di mana semua orang—tanpa 
-                  memandang latar belakang, usia, atau pengalaman—dapat menemukan suara mereka dan membagikan 
-                  cerita yang bermakna.
-                </p>
+                <p>Sejak awal, fokus kami adalah menciptakan komunitas yang inklusif, semua orang—tanpa memandang latar belakang, usia, atau pengalaman—dapat menemukan suara mereka dan membagikan cerita yang bermakna.</p>
               </div>
             </div>
             <div className="rounded-xl overflow-hidden shadow-md">
-              <img 
-                src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31" 
-                alt="Perjalanan Kita Berharga" 
-                className="w-full h-80 object-cover"
-              />
+              <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31" alt="Perjalanan Kita Berharga" className="w-full h-80 object-cover" />
             </div>
           </div>
         </div>
@@ -78,11 +65,7 @@ const About = () => {
             <div className="bg-white rounded-xl p-8 shadow-sm">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="w-40 h-40 rounded-full overflow-hidden flex-shrink-0">
-                  <img 
-                    src="https://i.pinimg.com/736x/3a/13/13/3a1313432020bccd45fa715c2f1d2a1c.jpg" 
-                    alt="Dhimas Rizky Handoko" 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src="https://i.pinimg.com/736x/3a/13/13/3a1313432020bccd45fa715c2f1d2a1c.jpg" alt="Dhimas Rizky Handoko" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold mb-1">Dhimas Rizky Handoko</h3>
@@ -155,24 +138,16 @@ const About = () => {
             perjalanan menginspirasi ini. Bagikan cerita Anda atau temukan inspirasi dari cerita orang lain.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link 
-              to="/stories" 
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:shadow-md"
-            >
+            <Link to="/stories" className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:shadow-md">
               Jelajahi Cerita
             </Link>
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center px-6 py-3 bg-white text-foreground border border-input rounded-full font-medium transition-all hover:shadow-md"
-            >
+            <Link to="/contact" className="inline-flex items-center px-6 py-3 bg-white text-foreground border border-input rounded-full font-medium transition-all hover:shadow-md">
               Hubungi Kami
               <ArrowRight size={16} className="ml-2" />
             </Link>
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default About;
