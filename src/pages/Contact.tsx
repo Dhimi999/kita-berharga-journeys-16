@@ -165,14 +165,14 @@ const Contact = () => {
                       rel="noopener noreferrer"
                       className="text-muted-foreground block"
                     >
-                      +62881036592711 (WA)
+                      WhatsApp: +62 881 0365 92711
                     </a>
                     {/* Telepon Biasa */}
                     <a
                       href="tel:+6281235015278"
                       className="text-muted-foreground block"
                     >
-                      +6281235015278 (TELEPON)
+                      Telepon: +62 812 3501 5278
                     </a>
                   </div>
                 </div>
@@ -185,10 +185,10 @@ const Contact = () => {
                   <div>
                     <h3 className="text-lg font-medium mb-1">Email</h3>
                     <a
-                      href="mailto:kitaberharga.id@gmail.com"
+                      href="mailto:kitaberharga.idn@gmail.com"
                       className="text-muted-foreground block"
                     >
-                      kitaberharga.id@gmail.com
+                      kitaberharga.idn@gmail.com
                     </a>
                     <a
                       href="mailto:support@kitaberharga.my.id"
@@ -221,10 +221,10 @@ const Contact = () => {
                   atau email dengan subjek "Pengajuan Cerita".
                 </p>
                 <a 
-                  href="mailto:kitaberharga.id@gmail.com?subject=Pengajuan%20Cerita"
+                  href="mailto:kitaberharga.idn@gmail.com?subject=Pengajuan%20Cerita"
                   className="inline-flex items-center text-primary font-medium hover:underline"
                 >
-                  Kirim cerita Anda ke kitaberharga.id@gmail.com
+                  Kirim cerita Anda ke kitaberharga.idn@gmail.com
                   <ArrowRight size={16} className="ml-2" />
                 </a>
               </div>
