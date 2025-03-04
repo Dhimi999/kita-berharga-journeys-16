@@ -44,7 +44,7 @@ const HeroSection = () => {
             <div className="w-full h-[500px] rounded-2xl overflow-hidden shadow-xl">
               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" alt="Berbagi cerita inspiratif" className="w-full h-full object-cover animate-image-reveal" loading="lazy" />
             </div>
-            <div className="absolute -bottom-6 -left-6 w-56 p-4 glass rounded-lg shadow-lg animate-fade-in">
+            <div className="absolute -bottom-6 -left-6 lg:-left-2 w-56 p-4 glass rounded-lg shadow-lg animate-fade-in">
               <p className="font-medium text-sm">
                 "Setiap cerita yang dibagikan memberikan harapan baru bagi orang lain."
               </p>
