@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import Stories from "./pages/Stories";
 import StoryDetail from "./pages/StoryDetail";
 import ShareStory from "./pages/ShareStory";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 import Header from "./components/Header";
 import GlobalFooter from "./components/GlobalFooter";
 
@@ -43,6 +45,8 @@ const App = () => (
           <Route path="/stories" element={<Stories />} />
           <Route path="/stories/:id" element={<StoryDetail />} />
           <Route path="/share-story" element={<ShareStory />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

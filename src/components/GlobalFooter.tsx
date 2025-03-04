@@ -46,12 +46,12 @@ const GlobalFooter = () => {
             <h4 className="text-lg font-medium mb-4">Hukum</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/terms" className="text-muted-foreground hover:text-primary transition-colors">
                   Ketentuan Layanan
                 </Link>
               </li>
               <li>
-                <Link to="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
                   Kebijakan Privasi
                 </Link>
               </li>

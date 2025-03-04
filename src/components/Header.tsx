@@ -33,26 +33,50 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-full">
-        {/* Logo dengan font asli */}
-        <Link to="/" className="text-2xl md:text-3xl font-serif font-bold tracking-tight">
+        {/* Logo dengan font asli dan additional padding when scrolled */}
+        <Link 
+          to="/" 
+          className={cn(
+            "text-2xl md:text-3xl font-serif font-bold tracking-tight transition-all duration-300",
+            isScrolled ? "pt-1" : ""
+          )}
+        >
           Kita Berharga
         </Link>
         
-        {/* Navigasi Desktop */}
-        <nav className="hidden md:flex items-center space-x-8">
+        {/* Navigasi Desktop dengan additional padding when scrolled */}
+        <nav 
+          className={cn(
+            "hidden md:flex items-center space-x-8 transition-all duration-300",
+            isScrolled ? "pt-1" : ""
+          )}
+        >
           <NavLink to="/" exact>Beranda</NavLink>
           <NavLink to="/stories">Cerita</NavLink>
           <NavLink to="/about">Tentang</NavLink>
           <NavLink to="/contact">Kontak</NavLink>
         </nav>
         
-        {/* Tombol "Share Your Story" untuk desktop */}
-        <Link to="/contact" className="hidden md:flex items-center rounded-full bg-green-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-800">
+        {/* Tombol "Share Your Story" untuk desktop dengan additional padding when scrolled */}
+        <Link 
+          to="/contact" 
+          className={cn(
+            "hidden md:flex items-center rounded-full bg-green-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-800",
+            isScrolled ? "pt-1" : ""
+          )}
+        >
           Share Your Story
         </Link>
         
-        {/* Tombol menu untuk mobile */}
-        <button className="md:hidden flex items-center justify-center text-foreground" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? "Close menu" : "Open menu"}>
+        {/* Tombol menu untuk mobile dengan additional padding when scrolled */}
+        <button 
+          className={cn(
+            "md:hidden flex items-center justify-center text-foreground transition-all duration-300",
+            isScrolled ? "pt-1" : ""
+          )} 
+          onClick={() => setIsMenuOpen(!isMenuOpen)} 
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
