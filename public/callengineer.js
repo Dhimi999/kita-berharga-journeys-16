@@ -3,7 +3,7 @@
   const config = {
     HIGHLIGHT_COLOR: "#0da2e7",
     HIGHLIGHT_BG: "#0da2e71a",
-    ALLOWED_ORIGINS: ["https://gptengineer.app", "http://localhost:3000", "https://lovable.dev"],
+    ALLOWED_ORIGINS: ["https://vercel.app", "http://localhost:3000", "https://vercel.com"],
     DEBOUNCE_DELAY: 10,
     Z_INDEX: 10000,
     TOOLTIP_OFFSET: 25,
